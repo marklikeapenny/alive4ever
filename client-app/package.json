@@ -1,0 +1,15 @@
+{
+    "name": "client-app",
+    "version": "0.0.1",
+    "description": "PoC CPU Benchmarking Client App",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node src/app.js 'wss://localhost:8081,wss://localhost:8082,wss://localhost:8083'"
+    },
+    "author": "@marklikeapenny",
+    "license": "MIT",
+    "dependencies": {
+        "hotpocket-js-client": "^0.5.6",
+        "uuid": "^9.0.1"
+    }
+}

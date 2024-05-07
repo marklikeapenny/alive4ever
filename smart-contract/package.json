@@ -1,0 +1,16 @@
+{
+    "name": "smart-contract",
+    "version": "0.0.1",
+    "description": "PoC CPU Benchmarking Smart Contract",
+    "main": "src/contract.js",
+    "scripts": {
+        "build": "ncc build src/contract.js -o dist",
+        "build:prod": "ncc build src/contract.js --minify -o dist",
+        "start": "npm run build && hpdevkit deploy dist"
+    },
+    "author": "@marklikeapenny",
+    "license": "MIT",
+    "dependencies": {
+        "hotpocket-nodejs-contract": "^0.7.4"
+    }
+}

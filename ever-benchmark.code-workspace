@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "benchmark-app"
+        },
+        {
+            "path": "smart-contract"
+        },
+        {
+            "path": "client-app"
+        }
+    ]
+}
