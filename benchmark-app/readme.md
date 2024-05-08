@@ -15,7 +15,7 @@ While this simple CPU benchmark was chosen as an example application, it is not 
 The smart contract will spawn a detached NodeJS process to execute this script within a HotPocket instace. For successful operation the smart contract will need to some arguments:
 
 -   `argv[2]` = A unique ID to identify a single benchmark run.
--   `argv[3]` = URL of a smart contract node that can be used to report back the results of the benchmark-app.
+-   `argv[3]` = URLs of smart contract nodes that can be used to report back the results of the benchmark-app.
 -   `argv[4]` = Public Key of the HotPocket instance that got benchmarked.
 -   `argv[5]` = Public key of user that requested the benchmark.
 
@@ -24,13 +24,12 @@ The smart contract will spawn a detached NodeJS process to execute this script w
 The app will try to connect to the Evernode smart contract and provide the benchmark results as user input. This input will be a semicolon-seperated string:
 
 ```text
-    RESULT;<pubKeyOfBenchmarkedNode>;<requestingUserPubKey>;<cpuBenchmarkDurationMs>
+    RESULT;<benchmarkId>;<pubKeyOfBenchmarkedNode>;<requestingUserPubKey>;<cpuBenchmarkDurationMs>
 ```
 
 ## Deployment
 
-1. Execute the build script: `npm run build`.
-2. Verify that a self-contained `benchmark-app.js` build was created inside the `dist` directory.
-3. Verify that `benchmark-app.js` was successfully copied to the `dist` directory of the `smart-contract` project.
-4. Continue to build and deploy the `smart-contract` project.
-5. Use `client-app` project to start a CPU benchmark for an Evernode cluster and display the results.
+1. Execute the build script: `npm run prepare`.
+2. Verify that the contents of the `dist` directory was successfully copied to the `dist` directory of the `smart-contract` project.
+3. Continue to build and deploy the `smart-contract` project.
+4. Use `client-app` project to start a CPU benchmark for the UNL nodes of an Evernode cluster and display the results.
