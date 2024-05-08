@@ -54,5 +54,6 @@ async function clientApp(nodeUrls) {
     await client.close();
 }
 
-// node app.js wss://localhost:8081
+// use "npm start" for local development with default 3-node hpdevkit cluster
+// use node app.js 'wss://some.evernode.host:port' for mainnet use
 clientApp(process.argv[2]);
