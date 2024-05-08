@@ -34,12 +34,21 @@ async function clientApp(nodeUrls) {
     });
 
     // Send START command to HotPocket smart contract.
-    await client.submitContractInput(`START;${benchmarkId};${nodeUrls}`);
-
-    // Subscribe to SHUTDOWN event for graceful app shutdown
-    await new Promise((resolve) => {
-        eventEmitter.once("SHUTDOWN", resolve);
-    });
+    const input = await client.submitContractInput(
+        `START;${benchmarkId};${nodeUrls}`
+    );
+    const submissionResult = await input.submissionStatus;
+    if (submissionResult.status === "accepted") {
+        console.log("Waiting for benchmark results ...");
+        // Subscribe to SHUTDOWN event for graceful app shutdown
+        await new Promise((resolve) => {
+            eventEmitter.once("SHUTDOWN", resolve);
+        });
+    } else {
+        console.log(
+            "The smart contract did not accept the request. Shutting down..."
+        );
+    }
 
     // Close HotPocket connection.
     await client.close();

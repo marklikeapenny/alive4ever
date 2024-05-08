@@ -37,12 +37,11 @@ async function startBenchmark() {
     if (!(await client.connect()))
         throw new Error("Unable to connect to smart contract.");
 
-    for (let x = 1; x < 10; x++) await client.submitContractInput("WARMUP" + x);
-    await client.submitContractInput(
+    const input = await client.submitContractInput(
         `RESULT;${benchmarkId};${pubKeyOfBenchmarkedNode};${requestingUserPubKey};${cpuBenchmarkDurationMs.toString()}`
     );
-    for (let x = 10; x < 20; x++)
-        await client.submitContractInput("COOLDOWN" + x);
+    const submissionResult = await input.submissionStatus;
+
     await client.close();
 }
 
