@@ -49,3 +49,7 @@ The project showcases some of the remarkable features of Evernode smart contract
 -   Deploy the smart contract to an [Evernode](https://evernode.org) instance or cluster. Click here for instructions how to do that: [Single instance](https://docs.evernode.org/en/latest/sdk/evernode/tutorials/deploy-single.html), [Cluster](https://docs.evernode.org/en/latest/sdk/evernode/tutorials/deploy-cluster.html)
 -   With another console window, `cd` into `client-app`, `node src/app.js <wss-url:port_of_an_instance>`. (Here a single wss-URL of the cluster should be enough, since it should be accessible for every member of the cluster.)
 -   Wait a few seconds until results show up in the console window.
+
+## Client Application Example Output
+
+![Client Application Example Output](./resources/alive4ever-example-results.png)
