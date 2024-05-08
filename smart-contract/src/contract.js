@@ -95,7 +95,6 @@ async function contract(ctx) {
             for (const input of user.inputs) {
                 const buffer = await ctx.users.read(input);
                 const message = buffer.toString();
-                console.log("-------------------RAW", message);
                 handleInputMessage(ctx, user, message);
             }
         }
