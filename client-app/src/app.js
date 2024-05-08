@@ -21,16 +21,22 @@ async function clientApp(nodeUrls) {
     // Handle smart contract outputs.
     client.on(HotPocket.events.contractOutput, (result) => {
         let done = false;
+        const marker = "BENCHMARKRESULTS";
 
-        console.log("Received outputs:");
+        console.log("Benchmark results:");
         result.outputs.forEach((o) => {
-            console.log(o);
-            done = o.toString().split(";")[0] === "BENCHMARKRESULTS";
+            done = o.toString().split(";")[0] === marker;
+            if (done) {
+                console.log(
+                    JSON.stringify(
+                        JSON.parse(o.toString().substring(marker.length + 1)),
+                        null,
+                        4
+                    )
+                );
+                eventEmitter.emit("SHUTDOWN");
+            }
         });
-
-        if (done) {
-            eventEmitter.emit("SHUTDOWN");
-        }
     });
 
     // Send START command to HotPocket smart contract.

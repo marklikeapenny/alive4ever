@@ -72,14 +72,26 @@ function reportCompletedBenchmark(ctx) {
                     .readFileSync(path.join(dirEntry.path, dirEntry.name))
                     .toString();
                 keys.push(dirEntry.name);
-                benchmarkResults[dirEntry.name] = contents;
+                benchmarkResults[dirEntry.name] = contents.split(";");
             });
-            let userOutput = "BENCHMARKRESULTS;";
+
+            let totalTimeMs = 0;
+            const consolidatedResult = { unlNodes: [] };
             keys.sort().forEach((k) => {
-                userOutput += benchmarkResults[k] + ";";
+                consolidatedResult.unlNodes.push({
+                    publicKey: benchmarkResults[k][2],
+                    benchmarkTimeMs: benchmarkResults[k][4],
+                });
+                totalTimeMs += parseInt(benchmarkResults[k][4]);
             });
-            const userId = benchmarkResults[keys[0]].split(";")[3];
+            consolidatedResult["benchmarkId"] = benchmarkResults[keys[0]][1];
+            consolidatedResult["averageBenchmarkTimeMs"] = Math.floor(
+                totalTimeMs / keys.length
+            );
+            const userId = benchmarkResults[keys[0]][3];
             const user = ctx.users.find(userId);
+            const userOutput =
+                "BENCHMARKRESULTS;" + JSON.stringify(consolidatedResult);
             user.send(userOutput);
 
             // Remove subdirectory of completed benchmark
