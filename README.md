@@ -38,6 +38,8 @@ The project showcases some of the remarkable features of Evernode smart contract
 
 -   Clone the repository.
 -   `cd` into each of the 3 project directories and run `npm install`.
+-   `cd` into `smart-contract` directory and run `npm build`.
+-   `cd` into `benchmark-app` directory and run `npm prepare`. (This will build the benchmark app and copy the self-contained file into the `dist/` directory of `smart-contract` project. Do this every time after changes were made to the `benchmark-app`.)
 -   With a new console window, `cd` into `smart-contract`, run `npm start`.
 -   With another console window, `cd` into `client-app`, run `npm start`. (Look into `package.json`: The `start` script will use all the default nodes as connection servers. That's important for local usage, since DNS wouldn't help the `benchmark-app` to connect to the cluster.)
 -   Wait a few seconds until results show up in the console window.
@@ -46,6 +48,8 @@ The project showcases some of the remarkable features of Evernode smart contract
 
 -   Clone the repository.
 -   `cd` into each of the 3 project directories and run `npm install`.
+-   `cd` into `smart-contract` directory and run `npm build`.
+-   `cd` into `benchmark-app` directory and run `npm prepare`. (This will build the benchmark app and copy the self-contained file into the `dist/` directory of `smart-contract` project. Do this every time after changes were made to the `benchmark-app`.)
 -   Deploy the smart contract to an [Evernode](https://evernode.org) instance or cluster. Click here for instructions how to do that: [Single instance](https://docs.evernode.org/en/latest/sdk/evernode/tutorials/deploy-single.html), [Cluster](https://docs.evernode.org/en/latest/sdk/evernode/tutorials/deploy-cluster.html)
 -   With another console window, `cd` into `client-app`, `node src/app.js <wss-url:port_of_an_instance>`. (Here a single wss-URL of the cluster should be enough, since it should be accessible for every member of the cluster.)
 -   Wait a few seconds until results show up in the console window.
