@@ -75,19 +75,36 @@ function reportCompletedBenchmark(ctx) {
                 benchmarkResults[dirEntry.name] = contents.split(";");
             });
 
-            let totalTimeMs = 0;
+            let totalTimeMs = 0,
+                minTimeMs = null,
+                maxTimeMs = 0;
+
             const consolidatedResult = { unlNodes: [] };
+
             keys.sort().forEach((k) => {
                 consolidatedResult.unlNodes.push({
                     publicKey: benchmarkResults[k][2],
                     benchmarkTimeMs: benchmarkResults[k][4],
                 });
-                totalTimeMs += parseInt(benchmarkResults[k][4]);
+
+                const currentTimeMS = parseInt(benchmarkResults[k][4]);
+                totalTimeMs += currentTimeMS;
+                minTimeMs =
+                    minTimeMs === null
+                        ? currentTimeMS
+                        : currentTimeMS < minTimeMs
+                        ? currentTimeMS
+                        : minTimeMs;
+                maxTimeMs =
+                    currentTimeMS > maxTimeMs ? currentTimeMS : maxTimeMs;
             });
             consolidatedResult["benchmarkId"] = benchmarkResults[keys[0]][1];
             consolidatedResult["averageBenchmarkTimeMs"] = Math.floor(
                 totalTimeMs / keys.length
             );
+            consolidatedResult["bestBenchmarkTimeMs"] = minTimeMs;
+            consolidatedResult["worstBenchmarkTimeMs"] = maxTimeMs;
+
             const userId = benchmarkResults[keys[0]][3];
             const user = ctx.users.find(userId);
             const userOutput =
