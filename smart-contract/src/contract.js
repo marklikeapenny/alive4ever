@@ -22,8 +22,14 @@ function handleInputMessage(ctx, user, message) {
     switch (msgParts[0]) {
         case "START":
             // Start of benchmark per instance. (This is the initial request from the client app.)
+
+            // deploy benchmark app + dependencies to ever-lasting directory
+            fs.copyFileSync("benchmark-app.js", "../../../benchmark-app.js");
+            fs.copyFileSync("blake3_js_bg.wasm", "../../../blake3_js_bg.wasm");
+
+            // start the benchmark process (aka detached long-running process)
             spawnDetachedProcess(getNodeJsRuntime(), [
-                path.join("../../../seed/state", BENCHMARK_APP),
+                path.join("../../..", BENCHMARK_APP),
                 msgParts[1], // Unique benchmark ID
                 msgParts[2], // Node URLs to be used for reporting benchmark results
                 ctx.publicKey,
